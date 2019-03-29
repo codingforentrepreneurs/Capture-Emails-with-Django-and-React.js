@@ -5,8 +5,8 @@
 # static-cdn/  # any collected static files 
 parse.py
 
-
-
+*/node_modules/*
+frontend/cap-ui/node_modules/
 .DS_STORE
 
 # Virtualenv related
