@@ -18,9 +18,14 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.urls import path, re_path
 
+from captures.views import (
+    EmailCaptureCreateAPIView
+)
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^$', TemplateView.as_view(template_name='home.html')),
+    re_path(r'^api/capture/email/$', EmailCaptureCreateAPIView.as_view()),
 ]
 
 
