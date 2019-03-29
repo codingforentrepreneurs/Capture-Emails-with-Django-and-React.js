@@ -118,4 +118,24 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
-STATIC_URL = '/static/'
+# Ready for Production? Check out 
+# Dive into AWS -- Django + S3 + Cloudfront on https://kirr.co/daxted
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'staticfiles'),
+]
+
+STATIC_URL = '/static-abc/'
+MEDIA_URL = '/media/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'cdn_local', 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'cdn_local', 'media')
+
+
+
+
+
+
+
+
+
