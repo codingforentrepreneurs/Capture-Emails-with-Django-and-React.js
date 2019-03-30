@@ -1,15 +1,30 @@
 'use strict'
 
 const e = React.createElement;
+const useState = React.useState;
 
 function HelloWorld (props) {
+    const [someVal, setSomeVal] = useState('')
 
-
-    function handleClick (event){
-        alert("Hi")
+    function handleSubmit (event){
+        event.preventDefault()
+        console.log(someVal)
+        // send to backend!
+        setSomeVal('')
     }
 
-    return <button onClick={handleClick}>Click me</button>
+    function handleChange (event) {
+        setSomeVal(event.target.value)
+    }
+    return <form onSubmit={handleSubmit}>
+        <input 
+            value={someVal}
+            onChange={handleChange}
+            type='email' 
+            placeholder='your email' 
+            required />
+        <button type='submit'>Save Email</button>
+    </form>
 }
 
 
