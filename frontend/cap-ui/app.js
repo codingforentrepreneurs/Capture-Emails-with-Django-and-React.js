@@ -1,11 +1,31 @@
 'use strict'
 
 const e = React.createElement;
+const useEffect = React.useEffect;
 const useState = React.useState;
+const rootURL = 'http://127.0.0.1:8000'
+
 
 const CaptureEmailUI = (props) => {
     const [value, setValue] = useState('')
     const [error, setError] = useState('')
+    const [token, setToken] = useState('')
+
+    useEffect(() => {
+        const url = `${rootURL}/api/capture/token/`
+        const xhr = new XMLHttpRequest()
+        xhr.open("GET", url, true) // async
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+               const responseJson = JSON.parse(xhr.responseText)
+               setToken(responseJson['csrfToken'])
+            } else {
+                alert("Error")
+            }
+        }
+        xhr.send()
+    }, [])
 
     const handleSubmit = (event) =>{
         event.preventDefault()
@@ -14,7 +34,7 @@ const CaptureEmailUI = (props) => {
             return
         }
         // send to backend!
-        const rootURL = 'http://127.0.0.1:8000'
+        
         const url = `${rootURL}/api/capture/email/`
         const data = {
             email: value
@@ -26,7 +46,7 @@ const CaptureEmailUI = (props) => {
 
         xhr.open("POST", url, true) // async
         xhr.setRequestHeader('Content-Type', 'application/json')
-        // ?
+        xhr.setRequestHeader('X-CSRFTOKEN', token)
 
         xhr.onload = () => {
             console.log(xhr.responseText)
