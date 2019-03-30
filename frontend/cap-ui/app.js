@@ -2,16 +2,16 @@
 
 const e = React.createElement;
 
-class HelloWorld extends React.Component {
+function HelloWorld (props) {
 
-    handleClick = () => {
-        alert("Hello world")
+
+    function handleClick (event){
+        alert("Hi")
     }
 
-    render () {
-        return <button onClick={this.handleClick}>Click me</button>
-    }
+    return <button onClick={handleClick}>Click me</button>
 }
+
 
 // Find all DOM containers, and render our component into them.
 var containers = document.querySelectorAll('.cap-ui')

@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "app.js",
   "scripts": {
-    "start": "open http://localhost:8888/ && python3 -m http.server 8888",
+    "start": "python3 -m http.server 8888",
     "build": "npx babel app.js --out-file app.min.js --presets minify --watch"
   },
   "author": "",
