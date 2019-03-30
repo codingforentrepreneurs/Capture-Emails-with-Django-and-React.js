@@ -69,16 +69,22 @@ const CaptureEmailUI = (props) => {
         setValue(event.target.value)
         setError('')
     }
-    return <form onSubmit={handleSubmit}>
+    console.log(props)
+    const {config} = props
+    return <form className={config.formClass} onSubmit={handleSubmit}>
         <input 
+            className={config.inputClass} 
             value={value}
             onChange={handleChange}
             type='email' 
             placeholder='your email' 
             required
              />
-        {error && <p>{error}</p>}
-        <button type='submit'>Save Email</button>
+        {error && <p className={config.errorClass}>{error}</p>}
+        {config.btnShow === 'false' ? '' :
+         
+            <p><button className={config.btnClass}  type='submit'>Save Email</button></p>
+          }
     </form>
 }
 
@@ -87,10 +93,11 @@ const CaptureEmailUI = (props) => {
 var containers = document.querySelectorAll('.cap-ui')
 containers.forEach(domContainer => {
     // Read the user ID from a data-* attribute.
+    console.log(domContainer.dataset)
     const userid = domContainer.dataset.userid
     // render the component into the DOM
     ReactDOM.render(
-      e(CaptureEmailUI, { userid: userid}),
+      e(CaptureEmailUI, { config: domContainer.dataset}),
       domContainer
     )
 });
