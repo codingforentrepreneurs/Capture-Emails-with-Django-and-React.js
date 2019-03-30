@@ -25,6 +25,7 @@ from captures.views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^$', TemplateView.as_view(template_name='home.html')),
+    re_path(r'^overview/$', TemplateView.as_view(template_name='overview.html')),
     re_path(r'^api/capture/email/$', EmailCaptureCreateAPIView.as_view()),
 ]
 
