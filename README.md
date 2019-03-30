@@ -48,3 +48,21 @@ The goal of this project is to have a reusable email capture for to be as simple
 
 [15 - React App Method 2 - Standalone React App](../../tree/160af9dc96800c257da102b992e4af2a782cc7a0/)
 
+[16 - React Development Environment](../../tree/0a36b392123fd1743512dbefbeacc481f50df04a/)
+
+[17 - Form State with React Hooks](../../tree/4855a5df85973bedac57161a370ca1cdcaf7447d/)
+
+[18 - Improving State & UI](../../tree/12768133e2e70fa9e6455168184c9810784dcd08/)
+
+[19 - Use XMLHttpRequest to Send Form Data](../../tree/fa6f5e809483d1edffbc067bdad53226ce1a0c70/)
+
+[20 - Without Session Authentication](../../tree/326db8676d7cf27ac15b9ed49b19b930a865d9b8/)
+
+[20 - Without Session Authentication](../../tree/9393d094f0dd24f1bff783b76f39ad30bea0a153/)
+
+[21 - CSRF Token Endpoint](../../tree/58ef74b78fa55b966da91fd19f9dd99a9ae10050/)
+
+[22 useEffect Hook](../../tree/006e7b76c0142ca3216cdfebbc936bd9c9f78ad6/)
+
+[23 - Dynamic Configuration for UI Component](../../tree/f438e9209261175b87ddf71be7391abe529982e0/)
+
