@@ -64,3 +64,11 @@ The goal of this project is to have a reusable email capture for to be as simple
 
 [23 - Dynamic Configuration for UI Component](../../tree/f438e9209261175b87ddf71be7391abe529982e0/)
 
+[24 - Cookies for CSRF Token](../../tree/b29b9663a13732e98d9e473c1f77fb0ec39e7ee6/)
+
+[25 - Custom Hook for Component Messages](../../tree/b0f4d53ac0dac8c91499d8bd3be207f4cb0ece62/)
+
+[26 - Convert Standalone to npx Version](../../tree/44d5e62be5d5054ddb346c00f238e1257b88af92/)
+
+[27 - Next Steps](../../tree/2715c384d64a300be80a19a06c5cd7ab8ad6339f/)
+
