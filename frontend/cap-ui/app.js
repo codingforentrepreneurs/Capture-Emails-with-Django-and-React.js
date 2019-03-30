@@ -5,30 +5,32 @@ const useEffect = React.useEffect;
 const useState = React.useState;
 const rootURL = 'http://127.0.0.1:8000'
 
+const getCookies = (name) => {
+    var cookies = {};
+    if (document.cookie && document.cookie !== '') {
+        document.cookie.split(';').forEach(function (c) {
+            var m = c.trim().match(/(\w+)=(.*)/);
+            if(m !== undefined) {
+                cookies[m[1]] = decodeURIComponent(m[2]);
+            }
+        });
+    }
+    if (name) {
+        return cookies[name]
+    }
+    return cookies;
+}
+
 
 const CaptureEmailUI = (props) => {
     const [value, setValue] = useState('')
     const [error, setError] = useState('')
-    const [token, setToken] = useState('')
-
-    useEffect(() => {
-        const url = `${rootURL}/api/capture/token/`
-        const xhr = new XMLHttpRequest()
-        xhr.open("GET", url, true) // async
-        xhr.setRequestHeader('Content-Type', 'application/json')
-        xhr.onload = () => {
-            if (xhr.status === 200) {
-               const responseJson = JSON.parse(xhr.responseText)
-               setToken(responseJson['csrfToken'])
-            } else {
-                alert("Error")
-            }
-        }
-        xhr.send()
-    }, [])
 
     const handleSubmit = (event) =>{
         event.preventDefault()
+        const csrftoken = getCookies('csrftoken')
+        console.log("token", csrftoken)
+
         if (value === '' || value === undefined || value === null) {
             setError("Value is required")
             return
@@ -46,7 +48,9 @@ const CaptureEmailUI = (props) => {
 
         xhr.open("POST", url, true) // async
         xhr.setRequestHeader('Content-Type', 'application/json')
-        xhr.setRequestHeader('X-CSRFTOKEN', token)
+
+        
+        xhr.setRequestHeader('X-CSRFTOKEN', csrftoken)
 
         xhr.onload = () => {
             console.log(xhr.responseText)
@@ -69,7 +73,6 @@ const CaptureEmailUI = (props) => {
         setValue(event.target.value)
         setError('')
     }
-    console.log(props)
     const {config} = props
     return <form className={config.formClass} onSubmit={handleSubmit}>
         <input 
@@ -92,9 +95,6 @@ const CaptureEmailUI = (props) => {
 // Find all DOM containers, and render our component into them.
 var containers = document.querySelectorAll('.cap-ui')
 containers.forEach(domContainer => {
-    // Read the user ID from a data-* attribute.
-    console.log(domContainer.dataset)
-    const userid = domContainer.dataset.userid
     // render the component into the DOM
     ReactDOM.render(
       e(CaptureEmailUI, { config: domContainer.dataset}),

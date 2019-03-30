@@ -19,7 +19,6 @@ from django.views.generic import TemplateView
 from django.urls import path, re_path
 
 from captures.views import (
-    csrf_token_view,
     EmailCaptureCreateAPIView
 )
 
@@ -27,7 +26,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^$', TemplateView.as_view(template_name='home.html')),
     re_path(r'^api/capture/email/$', EmailCaptureCreateAPIView.as_view()),
-    re_path(r'^api/capture/token/$', csrf_token_view),
 ]
 
 

@@ -1,14 +1,7 @@
-from django.middleware.csrf import get_token
-from django.http import JsonResponse
-
 from rest_framework import authentication, generics, permissions
 
 from .models import EmailCapture
 from .serializers import EmailCaptureSerializer
-
-def csrf_token_view(request):
-    token = get_token(request)
-    return JsonResponse({'csrfToken': token})
 
 # django corsheaders cfe.sh
 class EmailCaptureCreateAPIView(generics.CreateAPIView):
