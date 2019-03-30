@@ -3,26 +3,34 @@
 const e = React.createElement;
 const useState = React.useState;
 
-function HelloWorld (props) {
-    const [someVal, setSomeVal] = useState('')
+const CaptureEmailUI = (props) => {
+    const [value, setValue] = useState('')
+    const [error, setError] = useState('')
 
-    function handleSubmit (event){
+    const handleSubmit = (event) =>{
         event.preventDefault()
-        console.log(someVal)
+        if (value === '' || value === undefined || value === null) {
+            setError("Value is required")
+            return
+        }
         // send to backend!
-        setSomeVal('')
+        setValue('')
+        setError('')
     }
 
-    function handleChange (event) {
-        setSomeVal(event.target.value)
+    const handleChange = (event) => {
+        setValue(event.target.value)
+        setError('')
     }
     return <form onSubmit={handleSubmit}>
         <input 
-            value={someVal}
+            value={value}
             onChange={handleChange}
             type='email' 
             placeholder='your email' 
-            required />
+            required
+             />
+        {error && <p>{error}</p>}
         <button type='submit'>Save Email</button>
     </form>
 }
@@ -35,7 +43,7 @@ containers.forEach(domContainer => {
     const userid = domContainer.dataset.userid
     // render the component into the DOM
     ReactDOM.render(
-      e(HelloWorld, { userid: userid}),
+      e(CaptureEmailUI, { userid: userid}),
       domContainer
     )
 });
