@@ -17,7 +17,7 @@ const CaptureEmailUI = (props) => {
         const rootURL = 'http://127.0.0.1:8000'
         const url = `${rootURL}/api/capture/email/`
         const data = {
-            data: value
+            email: value
         }
 
         const jsonData = JSON.stringify(data)
