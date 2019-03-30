@@ -6,6 +6,8 @@ const useState = React.useState;
 const rootURL = 'http://127.0.0.1:8000'
 
 const getCookies = (name) => {
+    // vanilla javascript
+    // docs have jquery
     var cookies = {};
     if (document.cookie && document.cookie !== '') {
         document.cookie.split(';').forEach(function (c) {
