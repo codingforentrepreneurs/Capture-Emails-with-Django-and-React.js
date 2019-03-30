@@ -3,6 +3,7 @@ from rest_framework import authentication, generics, permissions
 from .models import EmailCapture
 from .serializers import EmailCaptureSerializer
 
+# django corsheaders cfe.sh
 class EmailCaptureCreateAPIView(generics.CreateAPIView):
     queryset            = EmailCapture.objects.all()
     serializer_class    = EmailCaptureSerializer
