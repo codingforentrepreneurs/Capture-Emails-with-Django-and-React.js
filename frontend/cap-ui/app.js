@@ -14,8 +14,35 @@ const CaptureEmailUI = (props) => {
             return
         }
         // send to backend!
-        setValue('')
-        setError('')
+        const rootURL = 'http://127.0.0.1:8000'
+        const url = `${rootURL}/api/capture/email/`
+        const data = {
+            data: value
+        }
+
+        const jsonData = JSON.stringify(data)
+
+        const xhr = new XMLHttpRequest()
+
+        xhr.open("POST", url, true) // async
+        xhr.setRequestHeader('Content-Type', 'application/json')
+        // ?
+
+        xhr.onload = () => {
+            console.log(xhr.responseText)
+            if (xhr.status === 201) {
+                alert("Success!")
+                setValue('')
+                setError('')
+
+            } else {
+                alert("Error")
+            }
+        }
+
+        xhr.send(jsonData)
+
+
     }
 
     const handleChange = (event) => {
