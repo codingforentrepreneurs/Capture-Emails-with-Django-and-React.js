@@ -23,18 +23,46 @@ const getCookies = (name) => {
     return cookies;
 }
 
+const useDisplayMsg = () => {
+    const [msg, setMsg] = useState('')
+    const [isError, setIsError] = useState(false)
+
+
+    const setDisplayMsg = (msg, isError) => {
+        setMsg(msg)
+        const error = String(isError) === 'true' ? true : false
+        setIsError(error)
+    }
+
+    useEffect(()=>{
+        let timeout;
+        if (msg !== '') {
+            const duration = isError ? 20 * 1000 : 5 * 1000
+            timeout = setTimeout(()=>{
+                setDisplayMsg("", false)
+            }, duration)
+        }
+
+        return () => {
+            clearTimeout(timeout)
+        }
+    })
+    return [msg, isError, setDisplayMsg]
+}
 
 const CaptureEmailUI = (props) => {
     const [value, setValue] = useState('')
-    const [error, setError] = useState('')
+    const [msg, isError, setDisplayMsg] = useDisplayMsg()
 
     const handleSubmit = (event) =>{
         event.preventDefault()
         const csrftoken = getCookies('csrftoken')
-        console.log("token", csrftoken)
+        if (!csrftoken) {
+            setDisplayMsg("This is not a valid embed.", true)
+        }
 
         if (value === '' || value === undefined || value === null) {
-            setError("Value is required")
+            setDisplayMsg("Value is required", true)
             return
         }
         // send to backend!
@@ -53,16 +81,15 @@ const CaptureEmailUI = (props) => {
 
         
         xhr.setRequestHeader('X-CSRFTOKEN', csrftoken)
-
+        xhr.onerror = () => {
+            setDisplayMsg('Error! Please try again later.', true)
+        }
         xhr.onload = () => {
-            console.log(xhr.responseText)
             if (xhr.status === 201) {
-                alert("Success!")
                 setValue('')
-                setError('')
-
+                setDisplayMsg('Success! You email is saved.', false)
             } else {
-                alert("Error")
+                setDisplayMsg('Error! Please try again.', true)
             }
         }
 
@@ -73,10 +100,15 @@ const CaptureEmailUI = (props) => {
 
     const handleChange = (event) => {
         setValue(event.target.value)
-        setError('')
+        setDisplayMsg('', false)
     }
     const {config} = props
     return <form className={config.formClass} onSubmit={handleSubmit}>
+        {(!isError && msg) && <div 
+            className={config.successClass ? 
+                config.successClass : 'alert alert-success'
+            }>{msg}</div>}
+
         <input 
             className={config.inputClass} 
             value={value}
@@ -85,7 +117,7 @@ const CaptureEmailUI = (props) => {
             placeholder='your email' 
             required
              />
-        {error && <p className={config.errorClass}>{error}</p>}
+        {(isError && msg) && <p className={config.errorClass}>{msg}</p>}
         {config.btnShow === 'false' ? '' :
          
             <p><button className={config.btnClass}  type='submit'>Save Email</button></p>
